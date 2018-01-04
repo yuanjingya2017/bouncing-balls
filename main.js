@@ -9,12 +9,21 @@ var height = canvas.height = window.innerHeight;
 //存着小球参数的数组
 var balls = [];
 var len = 25;
+var jsnum = document.querySelector('.js-num');
 // function to generate random number
 function random(min,max) {
     var num = Math.floor(Math.random()*(max-min)) + min;
     return num;
 }
-
+function ballsLeft() {
+    var num = len;
+    for(var i=0;i<balls.length;i++){
+        if(balls[i].exists==false){
+            num--;
+        }
+    }
+    return num;
+}
 
 /*
 *
@@ -166,6 +175,7 @@ EvilCircle.prototype.collisionDetect = function () {
             var distance = Math.sqrt(dx*dx+dy*dy);
             if(distance<this.size+balls[i].size){
                 balls[i].exists = false;
+                jsnum.innerHTML = ballsLeft();
             }
         }
     }
@@ -203,16 +213,15 @@ function loop() {
     evalcircle.draw();
     evalcircle.beInRect();
     evalcircle.collisionDetect();
-    evalcircle2.draw();
-    evalcircle2.beInRect();
-    evalcircle2.collisionDetect();
-
+    // evalcircle2.draw();
+    // evalcircle2.beInRect();
+    // evalcircle2.collisionDetect();
     requestAnimationFrame(loop);//递归调用自己
 }
-
-var evalcircle2 = new EvilCircle('blue',400,400,true);
-evalcircle2.beControlled(2);
 var evalcircle = new EvilCircle('red',200,300,true);
 evalcircle.beControlled(1);
+// var evalcircle2 = new EvilCircle('blue',400,400,true);
+// evalcircle2.beControlled(2);
+
 
 loop();
