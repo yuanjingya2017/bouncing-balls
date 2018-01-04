@@ -124,20 +124,36 @@ EvilCircle.prototype.beInRect = function () {
         this.y-=this.velY;
     }
 };
-EvilCircle.prototype.beControlled = function () {
+EvilCircle.prototype.beControlled = function (num) {
     var _this = this;
     window.onkeydown = function (e) {
-        if(e.keyCode=='87'){
-            _this.y-=_this.velY;
+        if(num==1){
+            if(e.keyCode=='87'){
+                _this.y-=_this.velY;
+            }
+            if(e.keyCode=='83'){
+                _this.y+=_this.velY;
+            }
+            if(e.keyCode=='65'){
+                _this.x-=_this.velX;
+            }
+            if(e.keyCode=='68'){
+                _this.x+=_this.velX;
+            }
         }
-        if(e.keyCode=='83'){
-            _this.y+=_this.velY;
-        }
-        if(e.keyCode=='65'){
-            _this.x-=_this.velX;
-        }
-        if(e.keyCode=='68'){
-            _this.x+=_this.velX;
+        if(num==2){
+            if(e.keyCode=='38'){
+                _this.y-=_this.velY;
+            }
+            if(e.keyCode=='40'){
+                _this.y+=_this.velY;
+            }
+            if(e.keyCode=='37'){
+                _this.x-=_this.velX;
+            }
+            if(e.keyCode=='39'){
+                _this.x+=_this.velX;
+            }
         }
     };
 };
@@ -154,7 +170,6 @@ EvilCircle.prototype.collisionDetect = function () {
         }
     }
 };
-
 /*
 *
 * loop方法 初始化25个小球 并且递归调用自己 来让小球的状态更新
@@ -194,27 +209,10 @@ function loop() {
 
     requestAnimationFrame(loop);//递归调用自己
 }
-var evalcircle2 = new EvilCircle('blue',400,400,true);
-evalcircle2.beControlled = function () {
-    var _this = this;
-    window.onkeydown = function (e) {
-        if(e.keyCode=='38'){
-            _this.y-=_this.velY;
-        }
-        if(e.keyCode=='40'){
-            _this.y+=_this.velY;
-        }
-        if(e.keyCode=='37'){
-            _this.x-=_this.velX;
-        }
-        if(e.keyCode=='39'){
-            _this.x+=_this.velX;
-        }
-    };
-};
-evalcircle2.beControlled();
 
+var evalcircle2 = new EvilCircle('blue',400,400,true);
+evalcircle2.beControlled(2);
 var evalcircle = new EvilCircle('red',200,300,true);
-evalcircle.beControlled();
+evalcircle.beControlled(1);
 
 loop();
